@@ -6,3 +6,5 @@ TODOs:
 CREDIT:
     https://huggingface.co/bert-base-uncased
     https://mccormickml.com/2019/07/22/BERT-fine-tuning/
+
+check out the readme.md at folder: deployment for test run
