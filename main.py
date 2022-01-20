@@ -9,13 +9,13 @@
         7. Get the sklearn classification report
         8. Plot the traing stats (loss, acc)
         9. Make predictions with the saved model
-    Author: Jimmy L.
+    Author: Jimmy L. @ AI - Camp
     Date: Spring 2022
 """
 
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 #     # NOTE: Using Label2ID and Saving it's fitted dictionary
 #     from Label2Id import Label2Id
 #     import pandas as pd
@@ -41,25 +41,23 @@
 
 
 
-#     # NOTE: Load label_tknz + input_tknz, get processed dataloaders
-#     from Label2Id import Label2Id
-#     from transformers import BertTokenizer
-#     from dataloader import EmailsDataset, dataloader, get_label_distribution
-#     import config
-#     epochs = 1
-#     label_tknz = Label2Id()
-#     label_tknz.load_dict(config.gp_dict_path)
-#     input_tknz = BertTokenizer.from_pretrained(config.gp_input_tknz_path)
-#     emails_data = EmailsDataset(config.data_path, config.input_loc, config.label_loc, config.max_len,
-#                                 input_tknz, label_tknz,
-#                                 preprocess=True, columns_to_drop=None, do_specific_labels=False)
-#     train_dataloader, valid_dataloader = dataloader(emails_data, config.batch_size, config.split_size, config.rand_seed)
+    # # NOTE: Load label_tknz + input_tknz, get processed dataloaders
+    # from Label2Id import Label2Id
+    # from transformers import BertTokenizer
+    # from dataloader import EmailsDataset, dataloader, get_label_distribution
+    # import config
+    # epochs = 1
+    # label_tknz = Label2Id()
+    # label_tknz.load_dict(config.gp_dict_path)
+    # input_tknz = BertTokenizer.from_pretrained(config.gp_input_tknz_path)
+    # emails_data = EmailsDataset(config.data_path, config.input_loc, config.label_loc, config.max_len,
+    #                             input_tknz, label_tknz,
+    #                             preprocess=True, columns_to_drop=None, do_specific_labels=False)
+    # train_dataloader, valid_dataloader = dataloader(emails_data, config.batch_size, config.split_size, config.rand_seed)
 
-
-
-#     # NOTE: Get label distributions for processed dataloaders
-#     print(get_label_distribution(train_dataloader, label_tknz))
-#     print(get_label_distribution(valid_dataloader, label_tknz))
+    # # NOTE: Get label distributions for processed dataloaders
+    # print(get_label_distribution(train_dataloader, label_tknz))
+    # print(get_label_distribution(valid_dataloader, label_tknz))
 
 
 
@@ -99,18 +97,17 @@
 #     plot_training_stats(training_stats, metric='acc', path=config.gp_acc_plot_path)
 
 
-
-#     # NOTE: how to make predictions with yout pretrained model
-#     import config
-#     from transformer import BertUncased, predict
-#     from transformers import BertTokenizer
-#     from Label2Id import Label2Id
-#     label_tknz = Label2Id()
-#     label_tknz.load_dict(config.gp_dict_path)
-#     input_tknz = BertTokenizer.from_pretrained(config.gp_input_tknz_path)
-#     bert = BertUncased()
-#     bert.build_model(len(label_tknz))
-#     bert.load_weights(config.general_para_BERT_path)
-#     sent = ["what are qualifications for scholarship"]
-#     pred = predict(sent, bert.model, input_tknz, label_tknz, device=config.device)
-#     print(pred)
+    # NOTE: how to make predictions with your pretrained model
+    import config
+    from transformer import BertUncased, predict
+    from transformers import BertTokenizer
+    from Label2Id import Label2Id
+    label_tknz = Label2Id()
+    label_tknz.load_dict(config.gp_dict_path)
+    input_tknz = BertTokenizer.from_pretrained(config.gp_input_tknz_path)
+    bert = BertUncased()
+    bert.build_model(len(label_tknz))
+    bert.load_weights(config.general_para_BERT_path, config.device)
+    sent = ["hello i signed my son reyner baker up late for employment this session s winter mining camp how do i go about getting a milk receipt for tax levy purposes i did not see anything on website the census website thanks for visiting any useful info christa maria schmidt,monetary_issues"]
+    pred = predict(sent, bert.model, input_tknz, label_tknz, device='cpu')
+    print(pred)

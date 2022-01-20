@@ -1,6 +1,6 @@
 """
     Description: create dataloader for our data
-    Author: Jimmy L.
+    Author: Jimmy L. @ AI - Camp
     Date: Spring 2022
 """
 from torch.utils.data import Dataset, DataLoader, random_split
@@ -90,7 +90,7 @@ class EmailsDataset(Dataset):
         
         # Map labels at self.df's labels location to general labels if do_specific_labels was set to False
         if do_specific_labels == False:
-            self.df['LABEL'] = self.df['LABEL'].apply(map_labels)
+            self.df[label_loc] = self.df[label_loc].apply(map_labels)
 
     def __getitem__(self, index):
         """ CLASS METHOD

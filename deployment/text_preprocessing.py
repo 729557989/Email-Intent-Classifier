@@ -1,6 +1,6 @@
 """
     Description: functions for text preprocessing
-    Author: Jimmy L.
+    Author: Jimmy L. @ AI - Camp
     Date: Fall 2021
 """
 import pandas as pd

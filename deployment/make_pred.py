@@ -9,7 +9,7 @@ NOTE: It took my laptop (cuda 11.5, rtx3060 @60W) 8.3 second to make one predict
 
 if __name__ == '__main__':
     # NOTE: single prediction
-    sent = ["what are qualifications for scholarship"]
+    sent = ["what are qualifications"]
     # # NOTE: multi predictions
     # sent = [
     #     "Please give me my *Y*&#@*$&( refund",

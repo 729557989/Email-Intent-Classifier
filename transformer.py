@@ -1,6 +1,6 @@
 """
     Description: construct the NLP Transformer model here
-    Author: Jimmy L.
+    Author: Jimmy L. @ AI - Camp
     Date: Spring 2022
 """
 from transformers import BertForSequenceClassification, AdamW, get_linear_schedule_with_warmup
@@ -35,10 +35,10 @@ class BertUncased():
             output_hidden_states = False, # Whether the model returns all hidden-states.
         )
     
-    def load_weights(self, filepath, predict_mode=True):
+    def load_weights(self, filepath, device, predict_mode=True):
         # Class method to load pretrained model weights into the A.I. model -> self.model
         # NOTE: this loading method is for making predictions 
-        checkpoint = torch.load(filepath)
+        checkpoint = torch.load(filepath, map_location=device)
         self.model.load_state_dict(checkpoint['model_state_dict'])
         if predict_mode == True:
             self.model.eval()

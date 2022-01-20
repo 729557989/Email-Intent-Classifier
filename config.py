@@ -1,6 +1,6 @@
 """
     Description: configuration file regarding parameters and hyperparameters
-    Author: Jimmy L.
+    Author: Jimmy L. @ AI - Camp
     Date: Spring 2022
 """
 import torch
@@ -9,10 +9,10 @@ import torch
 data_path = "emails.csv"
 
 # input column location
-input_loc = "content"
+input_loc = "input"
 
 # label column location
-label_loc = "LABEL"
+label_loc = "output"
 
 # unwanted pandas columns
 columns_to_drop =  ['Unnamed: 0', 'date', 'from', 'to', 'cc', 'subject']
@@ -36,7 +36,7 @@ vocab_size = 30522
 batch_size = 2
 torch.backends.cuda.matmul.allow_tf32 = True
 split_size = 0.8 # 0.8 means 80% train data and 20% test data
-rand_seed = 45
+rand_seed = 42
 learning_rate = 2e-5
 
 # number of labels
