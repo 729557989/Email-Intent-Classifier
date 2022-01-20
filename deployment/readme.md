@@ -14,4 +14,4 @@ Hi There! :)
    (3) Copy that "checkpoin.pth" file to: "deployment\model\weights"
    (4) Congratulations! You may Now go to "deployment\make_pred.py" and run a prediction!
 
-NOTE: the model predicts in 1d list, you can let the model predict: ["input", "input", "input" ...]
+NOTE: the model predicts in 1d list, you can let the model predict: ['input', 'input', 'input' ...]
