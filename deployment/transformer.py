@@ -86,19 +86,19 @@ def predict(input, model, input_tknz, label_tknz, device=None):
     Purpose: Utilize the A.I. model to make predictions
 
     Params:  1. input (1d list of string sentences):
-                The preprocessed string sentence the model is trying to make prediction of.
+                - The preprocessed string sentence the model is trying to make prediction of.
 
              2. model (BertForSequenceClassification):
-                The model to make predictions with.
+                - The model to make predictions with.
 
              3. input_tknz (transformers.models.bert.tokenization_bert.BertTokenizer):
-                    The input tokenizer that transform string inputs into a list of pytorch float
+                - The input tokenizer that transform string inputs into a list of pytorch float
 
              4. label_tknz (Label2Id object):
-                Label tokenizer that converts string labels into integers.
+                - Label tokenizer that converts string labels into integers.
 
              5. device (torch.device):
-                What device to use for A.I. training, generally 'cpu' or 'cuda'
+                - What device to use for A.I. training, generally 'cpu' or 'cuda'
 
     Returns: A list of predictions containing string labels
     """

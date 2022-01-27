@@ -17,72 +17,73 @@ warnings.filterwarnings('ignore')
 def training(model, epochs, batch_size, device, optimizer, scheduler,
              train_dataloader, valid_dataloader, saving_path=None, save_best_weights=False,
              model_class=None, comparison_metric='loss', data_compared='valid',
-             transfer_learning=True, get_training_stats=False, patience=3):
+             transfer_learning=True, get_training_stats=False, 
+             new_learining_rate=False, patience=3):
     """
     Purpose: Train the A.I. Model and save it
 
     Params:  1. model (BertForSequenceClassification):
-                    The A.I. for training
+                - The A.I. for training
 
              2. epochs (integer):
-                    Number of training epochs
+                - Number of training epochs
 
              3. batch_size (integer):
-                    Batch_size, or number of training examples utilized in one iteration
+                - Batch_size, or number of training examples utilized in one iteration
 
              4. device (torch.device):
-                    What device to use for A.I. training, generally 'cpu' or 'cuda'
+                - What device to use for A.I. training, generally 'cpu' or 'cuda'
 
              5. optimizer (transformers.optimization.AdamW):
-                    The optimizer for the A.I. model to reduce loss
+                - The optimizer for the A.I. model to reduce loss
 
              6. scheduler (torch.optim.lr_scheduler.LambdaLR):
-                    The scheduler that lowers learning rate throughout training
+                - The scheduler that lowers learning rate throughout training
 
              7. train_dataloader (torch.utils.data.dataloader.DataLoader):
-                    The dataloader containing the train data for training
+                - The dataloader containing the train data for training
 
              8. valid_dataloader (torch.utils.data.dataloader.DataLoader):
-                    The dataloader containing the validation data for training
+                - The dataloader containing the validation data for training
 
              9. saving_path (string):
-                    The path where the model's weights as stored, so called a checkpoint
+                - The path where the model's weights as stored, so called a checkpoint
 
             10. save_best_weights (string):
-                    Whether or not save only the model with the best weights through training
-                    NOTE: this functionality should be used in conjucntion with:
-                        12. comparison_metric
-                        13. data_compared
+                - Whether or not save only the model with the best weights through training
+                - NOTE: this functionality should be used in conjucntion with:
+                        12. comparison_metric, 13. data_compared
 
             11. model_class (BertUncased):
-                    The class object for torch.save() to save the model's weights
+                - The class object for torch.save() to save the model's weights
 
             12. comparison_metric (string):
-                    What metric to utilized to determine if a model has the best weights for 10. save_best_weights
-                    This could be either 'loss' (loss), or 'acc' (accuracy)
-                    NOTE: this functionality should be used in conjucntion with:
-                        12. comparison_metric
-                        13. data_compared
-
+                - What metric to utilized to determine if a model has the best weights for 10. save_best_weights
+                - This could be either 'loss' (loss), or 'acc' (accuracy)
+                - NOTE: this functionality should be used in conjucntion with:
+                        12. comparison_metric, 13. data_compared
 
             13. data_compared (string):
-                    What data is utilized to determine if a model has the best weights for 10. save_best_weights
-                    This could be either 'train' (training data), or 'valid' (validation data)
-                    NOTE: this functionality should be used in conjucntion with:
+                - What data is utilized to determine if a model has the best weights for 10. save_best_weights
+                - This could be either 'train' (training data), or 'valid' (validation data)
+                - NOTE: this functionality should be used in conjucntion with:
                         12. comparison_metric
                         13. data_compared
 
             14. transfer_learning (boolean):
-                    Whether or not to train the Saved model in the saving_path
-                    NOTE: must provide the saving_path to use this functionality
+                - Whether or not to train the Saved model in the saving_path
+                - NOTE: must provide the saving_path to use this functionality
 
             15. get_training_stats (boolean):
-                    Whether to return a list of training stats, such as loss & accuracy for plotting
+                - Whether to return a list of training stats, such as loss & accuracy for plotting
+            
+            16. new_learining_rate(boolean):
+                - Whether to continue using the saved optimizer and LrScheduler settings from the checkpoint at 9. saving_path
 
-            16. patience (integer):
-                    The number of epochs to wait before early stop if the model is considered having no progress,
-                    this determined by 12. comparison_metric & 13. data_compared.
-                    NOTE: this functionality should be used in conjucntion with:
+            17. patience (integer):
+                - The number of epochs to wait before early stop if the model is considered having no progress,
+                  this determined by 12. comparison_metric & 13. data_compared.
+                - NOTE: this functionality should be used in conjucntion with:
                         10. save_best_weights
                         12. comparison_metric
                         13. data_compared
@@ -100,15 +101,18 @@ def training(model, epochs, batch_size, device, optimizer, scheduler,
     patience_counter = 0
 
     # Epoch training loops
-    for epoch in range(1, epochs+1):
+    for epoch in range(1, epochs+1):        
         if save_best_weights==True and saving_path != None:
+            # Clear unused GPU memories
+            torch.cuda.empty_cache()
 
             # Load the checkpoint weights from saving_path
             if epoch > 1 or transfer_learning==True:
-                checkpoint = torch.load(saving_path)
+                checkpoint = torch.load(saving_path, map_location=device)
                 model.load_state_dict(checkpoint['model_state_dict'])
-                optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-                scheduler.load_state_dict(checkpoint["LrScheduler_state_dict"])
+                if new_learining_rate == False and epoch == 1:
+                    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+                    scheduler.load_state_dict(checkpoint["LrScheduler_state_dict"])
                 prev_metric = checkpoint[data_compared+'_'+comparison_metric]
 
                 # Cast the A.I. model to utilize device
@@ -125,6 +129,11 @@ def training(model, epochs, batch_size, device, optimizer, scheduler,
         model.train()
         print("<"+"-"*80+">")
 
+        print("Current Lr: {}, Initial_Lr: {}".format(
+            optimizer.state_dict()['param_groups'][-1]['lr'],
+            optimizer.state_dict()['param_groups'][-1]['initial_lr']
+        ))
+        
         # Make forward and backward propagations
         for idx, batch in tqdm.tqdm(enumerate(train_dataloader),
                                     total=len(train_dataloader.dataset)/batch_size,
@@ -259,31 +268,31 @@ def save_checkpoint(model, model_class,
     Purpose: Save model weights
 
     Params:  1. model (BertForSequenceClassification):
-                    The A.I. model
+                - The A.I. model
 
              2. model_class (BertUncased):
-                    The class_object where the 1. model was stored at
+                - The class_object where the 1. model was stored at
 
              3. train_loss (float):
-                    The A.I. model's training loss
+                - The A.I. model's training loss
 
              4. valid_loss (float):
-                    The A.I. model's validation loss
+                - The A.I. model's validation loss
 
              5. train_acc (float):
-                    The A.I. model's training accuracy
+                - The A.I. model's training accuracy
 
              6. valid_acc (float):
-                    The A.I. model's validation accuracy
+                - The A.I. model's validation accuracy
 
              7. optimizer (transformers.optimization.AdamW):
-                    The A.I. model's optimizer object
+                - The A.I. model's optimizer object
 
              8. scheduler (torch.optim.lr_scheduler.LambdaLR):
-                    The A.I. model's scheduler object
+                - The A.I. model's scheduler object
 
              9. saving_path (string):
-                    The path to save the weights, AKA the checkpoint
+                - The path to save the weights, AKA the checkpoint
 
     Returns: Nothing
     """
@@ -304,14 +313,14 @@ def save_decision(comparison_metric, curr_metric, prev_metric):
     Purpose: Determine whether or not to save the new model weights keep the loaded weights
     
     Params:  1. comparison_metric (string):
-                    What metric was used to compare between the models,
-                        accuracy(acc) or loss(loss)?
+                - What metric was used to compare between the models,
+                  accuracy(acc) or loss(loss)?
 
              2. curr_metric (float):
-                    The performance score for the current model at this epoch, could be a loss or acc (accuracy)
+                - The performance score for the current model at this epoch, could be a loss or acc (accuracy)
 
              3. prev_metric (float):
-                    The performance score for the loaded model at this epoch, could be a loss or acc (accuracy)
+                -The performance score for the loaded model at this epoch, could be a loss or acc (accuracy)
 
     Returns: True or False (booleans)
              If True, the current model is better and its weights should be saved, it not, don't save and move on.

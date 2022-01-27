@@ -3,6 +3,7 @@
     Author: Jimmy L. @ AI - Camp
     Date: Spring 2022
 """
+from tabnanny import verbose
 from transformers import BertForSequenceClassification, AdamW, get_linear_schedule_with_warmup
 from text_preprocessing import clean_texts
 import config
@@ -63,7 +64,8 @@ class BertUncased():
     def build_optimizer(self, learning_rate):
         # Class method to initialize the optimizer -> self.optimizer
         assert self.model != None
-        self.optimizer = AdamW(self.model.parameters(),
+        self.optimizer = AdamW(
+            self.model.parameters(),
             lr = learning_rate, # args.learning_rate - default is 5e-5, our notebook had 2e-5
             eps = 1e-8          # args.adam_epsilon  - default is 1e-8.
         )
@@ -75,9 +77,11 @@ class BertUncased():
         # (Note that this is not the same as the number of training samples).
         total_steps = len(train_dataloader) * epochs
         # Create the learning rate scheduler.
-        self.scheduler = get_linear_schedule_with_warmup(self.optimizer, 
-                                                    num_warmup_steps = 0, # Default value in run_glue.py
-                                                    num_training_steps = total_steps)
+        self.lrScheduler = get_linear_schedule_with_warmup(
+                                self.optimizer, 
+                                num_warmup_steps = 0, # Default value in run_glue.py
+                                num_training_steps = total_steps
+                            )
 
 
 def predict(input, model, input_tknz, label_tknz, device=None):
@@ -85,19 +89,19 @@ def predict(input, model, input_tknz, label_tknz, device=None):
     Purpose: Utilize the A.I. model to make predictions
 
     Params:  1. input (1d list of string sentences):
-                The preprocessed string sentence the model is trying to make prediction of.
+                - The preprocessed string sentence the model is trying to make prediction of.
 
              2. model (BertForSequenceClassification):
-                The model to make predictions with.
+                - The model to make predictions with.
 
              3. input_tknz (transformers.models.bert.tokenization_bert.BertTokenizer):
-                    The input tokenizer that transform string inputs into a list of pytorch float
+                - The input tokenizer that transform string inputs into a list of pytorch float
 
              4. label_tknz (Label2Id object):
-                Label tokenizer that converts string labels into integers.
+                - Label tokenizer that converts string labels into integers.
 
              5. device (torch.device):
-                What device to use for A.I. training, generally 'cpu' or 'cuda'
+                - What device to use for A.I. training, generally 'cpu' or 'cuda'
 
     Returns: A list of predictions containing string labels
     """

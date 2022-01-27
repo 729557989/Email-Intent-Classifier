@@ -5,7 +5,7 @@
 """
 import pickle
 
-#TODO: idea, every time when use it, just prevode it's self.dict instead of saving the tokenizer
+#TODO: idea, every time when use it, just previde it's self.dict instead of saving the tokenizer
 
 class Label2Id:
     """

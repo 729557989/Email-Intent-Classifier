@@ -24,10 +24,10 @@ def flat_accuracy(preds, labels):
     Purpose: get the flat accuracy given predictions and ground truth labels
 
     Params:  1. preds (numpy array):
-                 a 2d list of model prediction, shape: [batch_size, num_labels]
+                - a 2d list of model prediction, shape: [batch_size, num_labels]
 
              2. labels (numpy array):
-                 a 1d list of ground truth labels, shape [batch_size]
+                - a 1d list of ground truth labels, shape [batch_size]
 
     Returns: an accuracy score (numpy.float64) with the given preds and labels
     """
@@ -42,21 +42,21 @@ def get_classification_report(model, device, data_loader, label_tknz, get_acc=Fa
     Purpose: get an sklearn classification report as an evaluation metric for your model
              or, evaluate how well your model predicts with all of its multi-classes
     Params:  1. model (BertForSequenceClassification):
-                    The AI model
+                - The AI model
 
              2. device (torch.device):
-                    The device you would like to use, usually 'cpu' or 'cuda'
+                - The device you would like to use, usually 'cpu' or 'cuda'
 
              3. data_loader (torch.utils.data.dataloader.DataLoader):
-                    Input 'train_datalodaer' to get classification report for training set
-                    Input 'valid_datalodaer' to get get classification report for validation set
+                - Input 'train_datalodaer' to get classification report for training set
+                - Input 'valid_datalodaer' to get get classification report for validation set
 
              4. label_tknz (Label2ID):
-                    Label tokenizer that convert string labels into integers
+                - Label tokenizer that convert string labels into integers
 
              5. get_acc (boolean):
-                    If False, return sklearn's classification report
-                    If True, return a list containing accuracy for every class/label that the model can predict
+                - If False, return sklearn's classification report
+                - If True, return a list containing accuracy for every class/label that the model can predict
 
     Returns: If get_acc is True: Accuracy metric for every class (label) the your model can predict
              If get_acc is False: return an sklearn classification report
@@ -123,13 +123,13 @@ def plot_training_stats(stats, metric='loss', path=None):
     Purpose: plot stats such as loss and accuracy
 
     Params:  1. stats (list):
-                List of dictionaries containing training stats
+                - List of dictionaries containing training stats
 
              2. metric (string):
-                The Y label for the plot, 'loss' or 'acc' (accuracy)
+                - The Y label for the plot, 'loss' or 'acc' (accuracy)
 
              3. path (string):
-                The path to save the plots
+                - The path to save the plots
 
     Returns: displays a matplotlib.pyplot plot
     """
@@ -170,16 +170,16 @@ def eval(model, device, data_loader, batch_size):
     Purpose: Evaluate the A.I. model by returning an accuracy score and loss
 
     Params:  1. model (BertForSequenceClassification):
-                The AI model
+                - The AI model
 
              2. device (torch.device):
-                The device the A.I. model utilizes, usually 'cpu' or 'cuda'
+                - The device the A.I. model utilizes, usually 'cpu' or 'cuda'
 
              3. data_loader (torch.utils.data.dataloader.DataLoader):
-                The data_loader containing the data for the A.I. model to run predictions
+                - The data_loader containing the data for the A.I. model to run predictions
 
              4. batch_size (integer):
-                Batch_size, or number of training examples utilized in one iteration
+                - Batch_size, or number of training examples utilized in one iteration
 
     Returns: The average eval accuracy (integer) and the average eval loss (integer)
     """
@@ -233,16 +233,16 @@ def plot_confusion_matrix(model, device, data_loader, get_acc=False):
     Purpose: Plot an sklearn confusion matrix
 
     Params:  1. model (BertForSequenceClassification):
-                The AI model
+                - The AI model
 
              2. device (torch.device):
-                The device the A.I. model utilizes, usually 'cpu' or 'cuda'
+                - The device the A.I. model utilizes, usually 'cpu' or 'cuda'
 
              3. data_loader (torch.utils.data.dataloader.DataLoader):
-                The data_loader containing the data for the A.I. model to run predictions
+                - The data_loader containing the data for the A.I. model to run predictions
 
              4. get_acc (boolean):
-                Whether to show percentage distributions for each grid in the confusion matrix
+                - Whether to show percentage distributions for each grid in the confusion matrix
 
     Return:  Plot an confusion matrix
     """
