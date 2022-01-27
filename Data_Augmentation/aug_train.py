@@ -1,3 +1,8 @@
+"""
+    Description: functions for text preprocessing
+    Author: Jimmy L.
+    Date: Spring 2022
+"""
 import sys
 root = r"C:\Users\45323\Desktop\新python文件夹\AI_Camp\AICS_Bert"
 sys.path.append(root)

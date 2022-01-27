@@ -1,3 +1,8 @@
+"""
+    Description: functions for text preprocessing
+    Author: Jimmy L.
+    Date: Spring 2022
+"""
 import os
 import config
 import pandas as pd

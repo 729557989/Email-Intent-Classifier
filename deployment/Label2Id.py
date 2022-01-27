@@ -1,6 +1,6 @@
 """
     Description: map string labels into integer ids
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Spring 2022
 """
 import pickle

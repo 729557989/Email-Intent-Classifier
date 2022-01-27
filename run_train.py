@@ -9,7 +9,7 @@
         7. Get the sklearn classification report
         8. Plot the traing stats (loss, acc)
         9. Make predictions with the saved model
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Spring 2022
 """
 

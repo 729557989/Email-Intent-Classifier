@@ -1,6 +1,6 @@
 """
     Description: create dataloader for our data
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Spring 2022
 """
 from torch.utils.data import Dataset, DataLoader, random_split

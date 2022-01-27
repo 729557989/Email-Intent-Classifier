@@ -1,6 +1,6 @@
 """
     Description: construct the NLP Transformer model here
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Spring 2022
 """
 from tabnanny import verbose

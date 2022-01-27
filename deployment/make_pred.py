@@ -1,3 +1,9 @@
+
+"""
+    Description: functions for text preprocessing
+    Author: Jimmy L.
+    Date: Spring 2022
+"""
 import config
 from transformer import predict
 

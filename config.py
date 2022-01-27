@@ -1,6 +1,6 @@
 """
     Description: configuration file regarding parameters and hyperparameters
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Spring 2022
 """
 import torch

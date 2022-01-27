@@ -1,14 +1,12 @@
 """
     Description: functions for text preprocessing
-    Author: Jimmy L. @ AI - Camp
+    Author: Jimmy L.
     Date: Fall 2021
 """
 import pandas as pd
 import re
 from bs4 import BeautifulSoup
 from string import ascii_letters
-
-
 
 # Here is the dictionary that we will use for expanding the contractions:
 contraction_mapping =  {"ain't": "is not", 
