@@ -1,8 +1,4 @@
-"""
-    Description: Containing functions for model training.
-    Author: Jimmy L.
-    Date: Spring 2022
-"""
+
 from eval import flat_accuracy, eval
 import torch
 import tqdm
@@ -204,7 +200,7 @@ def training(model, epochs, batch_size, device, optimizer, scheduler,
 
                 # If transfer_learning is set to True or this isn't the first epoch,
                 #   then save the weights if the current model is considered as 'better' than the previous one.
-                elif save_decision(comparison_metric, curr_metric, prev_metric):
+                elif (comparison_metric=='loss' and (curr_metric < prev_metric)) or (comparison_metric=='acc' and (curr_metric > prev_metric)):
                     save_checkpoint(
                         model, model_class,
                         avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc,
@@ -237,11 +233,11 @@ def training(model, epochs, batch_size, device, optimizer, scheduler,
         if get_training_stats == True:
             training_stats.append(
                 {
-                 'epoch': epoch,
-                 'Training Loss': avg_train_loss,
-                 'Training Accur.' : avg_train_acc,
-                 'Valid. Loss': avg_valid_loss,
-                 'Valid. Accur.': avg_valid_acc
+                 'epoch':           epoch,
+                 'Training Loss':   avg_train_loss,
+                 'Training Accur.': avg_train_acc,
+                 'Valid. Loss':     avg_valid_loss,
+                 'Valid. Accur.':   avg_valid_acc
                 }
             )
         
@@ -305,28 +301,3 @@ def save_checkpoint(model, model_class,
                   'optimizer_state_dict':optimizer.state_dict(),
                   'LrScheduler_state_dict':scheduler.state_dict()}
     torch.save(checkpoint, saving_path)
-
-
-
-def save_decision(comparison_metric, curr_metric, prev_metric):
-    """
-    Purpose: Determine whether or not to save the new model weights keep the loaded weights
-    
-    Params:  1. comparison_metric (string):
-                - What metric was used to compare between the models,
-                  accuracy(acc) or loss(loss)?
-
-             2. curr_metric (float):
-                - The performance score for the current model at this epoch, could be a loss or acc (accuracy)
-
-             3. prev_metric (float):
-                -The performance score for the loaded model at this epoch, could be a loss or acc (accuracy)
-
-    Returns: True or False (booleans)
-             If True, the current model is better and its weights should be saved, it not, don't save and move on.
-    """
-    if comparison_metric=='loss' and curr_metric < prev_metric:
-        return True
-    elif comparison_metric=='acc' and curr_metric > prev_metric:
-        return True
-    return False

@@ -1,7 +1,5 @@
 """
     Description: map string labels into integer ids
-    Author: Jimmy L.
-    Date: Spring 2022
 """
 import pickle
 

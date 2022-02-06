@@ -1,7 +1,5 @@
 """
     Description: functions for text preprocessing
-    Author: Jimmy L.
-    Date: Spring 2022
 """
 import os
 import config
@@ -119,10 +117,10 @@ def add_primitive_data(prim_dfs, aug_dfs, order_dict):
     Purpose: Group the primitve data instances with their augmented ones
 
     Params:  1. prim_dfs (dictionary):
-                - dictionary containing the augmented data structured -> label : Pandas Dataframe
+                - dictionary containing the primitive data structured -> label : Pandas Dataframe
 
              2. aug_dfs (dictionary):
-                - dictionary containing the primitive data structured -> label : Pandas Dataframe
+                - dictionary containing the augmented data structured -> label : Pandas Dataframe
 
              3. order_dict (dictionary):
                 - dictionary to decided on where to insert the primitive data every nth row,

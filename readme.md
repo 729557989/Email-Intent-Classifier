@@ -52,3 +52,5 @@
 12. File -> "transformer.py" contains:
     - a python script containing a class for organization the AI model,
       and other fucntions to use such as making predictions, init optimizer, init LrScheduler and etc...
+
+Add regular/gpu torch requirements.txt

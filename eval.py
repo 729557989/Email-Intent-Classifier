@@ -1,7 +1,5 @@
 """
     Description: config file for hyperparameters
-    Author: Jimmy L.
-    Date: Spring 2022
 """
 from sklearn.metrics import confusion_matrix, classification_report
 import matplotlib.pyplot as plt
