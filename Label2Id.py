@@ -1,7 +1,9 @@
 """
     Description: map string labels into integer ids
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
 """
-import pickle
+import json
 
 #TODO: idea, every time when use it, just previde it's self.dict instead of saving the tokenizer
 
@@ -48,12 +50,17 @@ class Label2Id:
     
     def save_dict(self, path):
         # Save self.dict at location path
-        pickle.dump(self.dict, open(path, "wb"))
+        with open(path, 'w') as file_object:  #open the file in write mode
+            json.dump(self.dict, file_object)
+            
         print("Successfully Saved label dict!")
 
     def load_dict(self, path):
         # Load the saved dictionary to self.dict
-        self.dict = pickle.load(open(path,'rb'))
+        
+        file = open(path)
+        self.dict = json.load(file)
+        
         self.reverse_dict = dict(zip(self.dict.values(), self.dict.keys()))
         print("Successfully Loaded label dict!")
 
