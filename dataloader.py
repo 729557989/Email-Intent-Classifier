@@ -1,5 +1,7 @@
 """
     Description: create dataloader for our data
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
 """
 from torch.utils.data import Dataset, DataLoader, random_split
 from text_preprocessing import clean_df, map_labels

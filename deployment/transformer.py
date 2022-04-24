@@ -1,5 +1,7 @@
 """
     Description: construct the NLP Transformer model here
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
 """
 from transformers import BertForSequenceClassification, AdamW, get_linear_schedule_with_warmup
 from text_preprocessing import clean_texts

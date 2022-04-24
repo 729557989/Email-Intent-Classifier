@@ -1,4 +1,8 @@
-
+"""
+    Description: Containing functions for model training.
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
+"""
 from eval import flat_accuracy, eval
 import torch
 import tqdm

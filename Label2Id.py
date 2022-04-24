@@ -58,7 +58,7 @@ class Label2Id:
     def load_dict(self, path):
         # Load the saved dictionary to self.dict
         
-        file = open(path, 'rb')
+        file = open(path)
         self.dict = json.load(file)
         
         self.reverse_dict = dict(zip(self.dict.values(), self.dict.keys()))

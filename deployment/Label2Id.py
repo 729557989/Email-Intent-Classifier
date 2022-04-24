@@ -1,5 +1,7 @@
 """
     Description: map string labels into integer ids
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
 """
 import pickle
 

@@ -9,6 +9,10 @@
         7. Get the sklearn classification report
         8. Plot the traing stats (loss, acc)
         9. Make predictions with the saved model
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
+    
+    Run: SHIFT + CTRL + ` to open terminal
 """
 from eval import plot_training_stats
 import config
@@ -99,10 +103,12 @@ if __name__ == '__main__':
     # NOTE: how to make predictions with your pretrained model
     label_tknz = Label2Id()
     label_tknz.load_dict(config.gp_dict_path)
+    print(label_tknz.dict)
     input_tknz = BertTokenizer.from_pretrained(config.gp_input_tknz_path)
     bert = BertUncased()
     bert.build_model(len(label_tknz))
     bert.load_weights(config.general_para_BERT_path, config.device)
+    # print(bert.get_model_parameters())
     sent = ["I would like to speak to ai camp regarding my child's learning status",
             "When can we expect a refund?",
             "Is the course still available on December 2021?"]

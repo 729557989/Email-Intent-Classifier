@@ -1,5 +1,7 @@
 """
     Description: configuration file regarding parameters and hyperparameters
+    Author: Jimmy L. @ AI - Camp
+    Date: Spring 2022
 """
 import torch
 
@@ -16,7 +18,8 @@ label_loc = "output"
 columns_to_drop =  ['date', 'from', 'to', 'cc', 'subject']
 
 # paths for label tokenizer's dictionary
-gp_dict_path = "models/model_general_para/label_dict/label_dict.pkl" # label tokenizer's dictionay file for model general para
+# gp_dict_path = "models/model_general_para/label_dict/label_dict.pkl" # label tokenizer's dictionay file for model general para
+gp_dict_path = "models/model_general_para/label_dict/label_dict.json" # label tokenizer's dictionay file for model general para
 
 # input tokenizer paths
 gp_input_tknz_path = "models/model_general_para/input_tknz" # input tokenizer for model general para
